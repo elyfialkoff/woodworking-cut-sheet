@@ -75,6 +75,7 @@ def initialSmartPlacementTest():
   sheet = Sheet(width, length)
 
   a = Board(2, 8, 'A')
+  print(a)
   x = Board(2, 4, 'X')
   y = Board(4, 4, 'Y')
 
@@ -91,10 +92,9 @@ def initialSmartPlacementTest():
     for c in range(sheet.length):
       if sheet.doesBoardFitOnSheetAt(a, r, c, True):
         sheet.drawBoardOnSheet(a, r, c, True)
-        print("Row: {}, Column: {}".format(r+1, c+1))
-        break
-
-  print(sheet)
+        print(sheet)
+        # print("Row: {}, Column: {}".format(r+1, c+1))
+        return
 
   # cutList.append([a, 0, 0, True])
 
