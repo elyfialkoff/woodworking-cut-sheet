@@ -56,14 +56,14 @@ def initialPlacementTest():
   c = Board(4, 8, 'C')
 
   cutList = list()
-  cutList.append([a, 0, 0, True])
-  cutList.append([b, 2, 0, True])
-  cutList.append([c, 2, 8, False])
+  cutList.append([a, 0, 0])
+  cutList.append([b, 2, 0])
+  cutList.append([c, 2, 8])
 
   doesBoardFitOnSheet = True
   while doesBoardFitOnSheet and cutList:
     board, x_i, y_i, rotation = cutList.pop()
-    doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i, rotation)
+    doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i)
 
   print(sheet) 
 
@@ -71,32 +71,38 @@ def initialSmartPlacementTest():
   """
   Take a Sheet, and a Board and place the board on the sheet by trying several options
   """
-  width, length = 12, 12
+  width, length = 10, 14
   sheet = Sheet(width, length)
 
+  addBoardsToSheet(sheet)
+  print(sheet)
+
+def addBoardsToSheet(sheet):
   a = Board(2, 8, 'A')
+  a.rotate()
   print(a)
   x = Board(2, 4, 'X')
-  y = Board(4, 4, 'Y')
+  y = Board(4, 6, 'Y')
 
   cutList = list()
-  cutList.append([x, 0, 0, True])
-  cutList.append([y, 4, 4, False])
+  cutList.append([x, 0, 0])
+  cutList.append([y, 4, 4])
 
   doesBoardFitOnSheet = True
   while doesBoardFitOnSheet and cutList:
-    board, x_i, y_i, rotation = cutList.pop()
-    doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i, rotation)
+    board, x_i, y_i = cutList.pop()
+    doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i)
 
-  for r in range(sheet.width):
-    for c in range(sheet.length):
-      if sheet.doesBoardFitOnSheetAt(a, r, c, True):
-        sheet.drawBoardOnSheet(a, r, c, True)
-        print(sheet)
-        # print("Row: {}, Column: {}".format(r+1, c+1))
-        return
+  print(sheet.doesBoardFitOnSheetAt(a, 2, 0))
+  sheet.drawBoardOnSheet(a, 2, 0)
 
-  # cutList.append([a, 0, 0, True])
+  # for r in range(sheet.width):
+  #   for c in range(sheet.length):
+  #     if sheet.doesBoardFitOnSheetAt(a, r, c):
+  #       sheet.drawBoardOnSheet(a, r, c)
+  #       return
+
+  return
 
 if __name__ == '__main__':
   main()
