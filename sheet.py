@@ -4,7 +4,7 @@ from board import Board
 
 class Sheet():
 
-  notCutYet = ' '
+  notCutYet = '-'
 
   def __init__(self, width, length):
     self.width = width
@@ -26,9 +26,9 @@ class Sheet():
     # Check rotation and set x_2, y_2 accordingly
     if not rotation:
       x_1 = x_0 + board.length - 1
-      y_1 = y_0 + board.smaller - 1
+      y_1 = y_0 + board.width - 1
     else:
-      x_1 = x_0 + board.smaller - 1
+      x_1 = x_0 + board.width - 1
       y_1 = y_0 + board.length - 1
 
     # loop over width, length
@@ -48,4 +48,30 @@ class Sheet():
     # I want to keep track of the boards, and where they are located on the sheet so that I can remove it later
     self.boards.append(board)
 
+    return True
+
+  def doesBoardFitOnSheetAt(self, board, x_0, y_0, rotation):
+    """
+    return True if the board fits on the sheet at the desired origin (x_0, y_0)
+    does not tell you the rotation status of the fit
+    """
+    return self.doesBoardFitWithinBounderiesOfSheet(board, x_0, y_0, rotation) and self.isBoardFreeOfConflictsOnSheet(board, x_0, y_0)
+
+  def doesBoardFitWithinBounderiesOfSheet(self, board, x_0, y_0, rotation):
+    # Check to current placement of the board to determine if it will fit withint the sheets bounderies. 
+    if rotation:
+      return (x_0 + board.width <= self.width) and (y_0 + board.length <= self.length)
+    else:
+      return (x_0 + board.length <= self.width) and (y_0 + board.width <= self.length)
+
+  def isBoardFreeOfConflictsOnSheet(self, board, x_0, y_0):
+    # Check the current placement of the board to determine if it will have any conflicts. 
+    for r, row in enumerate(self.sheet):
+      if r >= x_0 and r <= x_0 + board.width:
+        for c, col in enumerate(row):
+          if c >= y_0 and c <= y_0 + board.length:
+            if col != self.notCutYet:
+              print("Row: {}, Col: {}, Value: {}".format(r+1, c+1, col))
+              return False
+    
     return True

@@ -21,34 +21,37 @@ def main():
   #   sheet.drawBoardOnSheet(a, x_0, y_0, rotation)
   #   print(sheet)
 
-def doesBoardFitOnSheetAt(sheet, board, x_0, y_0, rotation):
-  """
-  return True if the board fits on the sheet at the desired origin (x_0, y_0)
-  does not tell you the rotation status of the fit
-  """
+# def doesBoardFitOnSheetAt(sheet, board, x_0, y_0, rotation):
+#   """
+#   return True if the board fits on the sheet at the desired origin (x_0, y_0)
+#   does not tell you the rotation status of the fit
+#   """
 
-  # I need to check if the board fits at the current location (and nothing is its in its way)
-  # This currently does not work
-  # Idea - take the sub matrix at x_0 to x_0 + board.smaller, and y_0 to y_0 + board.bigger and see if all items are unCut
-  flatSheet = sheet.sheet[x_0:x_0+board.smaller][y_0:y_0+board.bigger].flatten()
-  print(flatSheet)
+#   # Check to current placement of the board to determine if it will fit withint the sheets bounderies. 
+#   if rotation:
+#     doesBoardFit = (x_0 + board.width <= sheet.width) and (y_0 + board.length <= sheet.length)
+#   else:
+#     doesBoardFit = (x_0 + board.length <= sheet.width) and (y_0 + board.width <= sheet.length)
 
-  for item in flatSheet:
-    if item is not sheet.notCutYet:
-      return False
-  # 
+#   if not doesBoardFit:
+#     return doesBoardFit
 
-  if rotation:
-    doesBoardFit = (x_0 + board.width <= sheet.width) and (y_0 + board.length <= sheet.length)
-  else:
-    doesBoardFit = (x_0 + board.length <= sheet.width) and (y_0 + board.width <= sheet.length)
-  return doesBoardFit
+#   # Check the current placement of the board to determine if it will have any conflicts. 
+#   for r, row in enumerate(sheet.sheet):
+#     if r >= x_0 and r <= x_0 + board.width:
+#       for c, col in enumerate(row):
+#         if c >= y_0 and c <= y_0 + board.length:
+#           if col != sheet.notCutYet:
+#             print("Row: {}, Col: {}, Value: {}".format(r+1, c+1, col))
+#             return False
+
+#   return doesBoardFit
 
 def initialPlacementTest():
   width, length = 12, 12
   sheet = Sheet(width, length)
 
-  a = Board(2, 12, 'A')
+  a = Board(2, 8, 'A')
   b = Board(4, 8, 'B')
   c = Board(4, 8, 'C')
 
@@ -86,9 +89,9 @@ def initialSmartPlacementTest():
 
   for r in range(sheet.width):
     for c in range(sheet.length):
-      if doesBoardFitOnSheetAt(sheet, a, r, c, True):
+      if sheet.doesBoardFitOnSheetAt(a, r, c, True):
         sheet.drawBoardOnSheet(a, r, c, True)
-        print("Row: {}, Column: {}".format(r, c))
+        print("Row: {}, Column: {}".format(r+1, c+1))
         break
 
   print(sheet)
