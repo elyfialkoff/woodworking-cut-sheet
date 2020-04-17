@@ -39,9 +39,9 @@ def doesBoardFitOnSheetAt(sheet, board, x_0, y_0, rotation):
   # 
 
   if rotation:
-    doesBoardFit = (x_0 + board.smaller <= sheet.width) and (y_0 + board.bigger <= sheet.length)
+    doesBoardFit = (x_0 + board.width <= sheet.width) and (y_0 + board.length <= sheet.length)
   else:
-    doesBoardFit = (x_0 + board.bigger <= sheet.width) and (y_0 + board.smaller <= sheet.length)
+    doesBoardFit = (x_0 + board.length <= sheet.width) and (y_0 + board.width <= sheet.length)
   return doesBoardFit
 
 def initialPlacementTest():

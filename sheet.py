@@ -25,11 +25,11 @@ class Sheet():
 
     # Check rotation and set x_2, y_2 accordingly
     if not rotation:
-      x_1 = x_0 + board.bigger - 1
+      x_1 = x_0 + board.length - 1
       y_1 = y_0 + board.smaller - 1
     else:
       x_1 = x_0 + board.smaller - 1
-      y_1 = y_0 + board.bigger - 1
+      y_1 = y_0 + board.length - 1
 
     # loop over width, length
     for i in range(self.width):
