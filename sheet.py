@@ -22,15 +22,9 @@ class Sheet():
     This method uses a starting position of x_0, y_0 (and uses the width, length of the board)
     This method can rotate the board so no need to worry about widths and lengths
     """
-
-    # Check rotation and set x_2, y_2 accordingly
-    if not board.rotation:
-      x_1 = x_0 + board.width - 1
-      y_1 = y_0 + board.length - 1
-    else:
-      x_1 = x_0 + board.length - 1
-      y_1 = y_0 + board.width - 1
-
+    x_1 = x_0 + board.width - 1
+    y_1 = y_0 + board.length - 1
+    
     # loop over width, length
     for i in range(self.length):
       for j in range(self.width):
@@ -62,28 +56,22 @@ class Sheet():
     return fitWithinBounderies and internalConflictFree
 
   def doesBoardFitWithinBounderiesOfSheet(self, board, x_0, y_0):
-    # Check to current placement of the board to determine if it will fit withint the sheets bounderies. 
-    if not board.rotation:
-      result = (x_0 + board.width <= self.width) and (y_0 + board.length <= self.length)
-      print("IF: Board: {}, at ({}, {}) = {}".format(board.color, x_0, y_0, result))
-      return result
-    else:
-      result = (x_0 + board.length <= self.width) and (y_0 + board.width <= self.length)
-      print("ELSE: Board: {}, at ({}, {}) = {}".format(board.color, x_0, y_0, result))
-      return result
+    result = (x_0 + board.width <= self.width) and (y_0 + board.length <= self.length)
+    print("Board: {}, at ({}, {}) = {}".format(board.color, x_0, y_0, result))
+    return result
 
   def isBoardFreeOfConflictsOnSheet(self, board, x_0, y_0):
-    print("({}, {})".format(x_0, y_0))
+    # print("({}, {})".format(x_0, y_0))
     # Check the current placement of the board to determine if it will have any conflicts. 
     for r, row in enumerate(self.sheet):
-      if r >= y_0 and r <= y_0 + board.length:
+      if r >= y_0 and r < y_0 + board.length:
         for c, col in enumerate(row):
-          if c >= x_0 and c <= x_0 + board.width:
+          if c >= x_0 and c < x_0 + board.width:
 
-            print("({}, {}) with a color: {}".format(c, r, col))
+            # print("({}, {}) with a color: {}".format(c, r, col))
 
             if col != self.notCutYet:
-              print("Row: {}, Col: {}, Value: {}".format(r+1, c+1, col))
+              print("Row: {}, Col: {}, Value: {}".format(c, r, col))
               return False
     
     return True
