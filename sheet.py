@@ -50,28 +50,23 @@ class Sheet():
     does not tell you the rotation status of the fit
     """
     fitWithinBounderies = self.doesBoardFitWithinBounderiesOfSheet(board, x_0, y_0)
-    print("fitWithinBounderies: {}".format(fitWithinBounderies))
     internalConflictFree = self.isBoardFreeOfConflictsOnSheet(board, x_0, y_0)
-    print("internalConflictFree: {}".format(internalConflictFree))
     return fitWithinBounderies and internalConflictFree
 
   def doesBoardFitWithinBounderiesOfSheet(self, board, x_0, y_0):
     result = (x_0 + board.width <= self.width) and (y_0 + board.length <= self.length)
-    print("Board: {}, at ({}, {}) = {}".format(board.color, x_0, y_0, result))
     return result
 
   def isBoardFreeOfConflictsOnSheet(self, board, x_0, y_0):
-    # print("({}, {})".format(x_0, y_0))
     # Check the current placement of the board to determine if it will have any conflicts. 
     for r, row in enumerate(self.sheet):
       if r >= y_0 and r < y_0 + board.length:
         for c, col in enumerate(row):
           if c >= x_0 and c < x_0 + board.width:
-
-            # print("({}, {}) with a color: {}".format(c, r, col))
-
             if col != self.notCutYet:
-              print("Row: {}, Col: {}, Value: {}".format(c, r, col))
               return False
     
     return True
+
+  def removeBoardFromSheet(self, board):
+    pass
