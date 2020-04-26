@@ -44,6 +44,20 @@ class Sheet():
 
     return True
 
+  def removeBoardFromSheet(self, board, x_0, y_0):
+    """
+    set the board's color back to notCutYet, and make the space free
+    """
+    for r, row in enumerate(range(self.length)):
+      if r >= y_0 and r <= y_0 + board.length: 
+        for c, col in enumerate(range(self.width)):
+          if c >= x_0 and c < x_0 + board.width:
+            if self.sheet[r][c] == board.color:
+              self.sheet[r][c] = self.notCutYet
+            else:
+              print("Something appears wrong at ({}, {})".format(r, c))
+
+
   def doesBoardFitOnSheetAt(self, board, x_0, y_0):
     """
     return True if the board fits on the sheet at the desired origin (x_0, y_0)
@@ -67,6 +81,3 @@ class Sheet():
               return False
     
     return True
-
-  def removeBoardFromSheet(self, board):
-    pass

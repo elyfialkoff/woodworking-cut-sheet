@@ -15,7 +15,7 @@ def initialSmartPlacementTest():
   sheet = Sheet(width, length)
 
   addBoardsToSheet(sheet)
-  print(sheet)
+  # print(sheet)
 
 def addBoardsToSheet(sheet):
   a = Board(2, 8, 'A')
@@ -39,8 +39,17 @@ def addBoardsToSheet(sheet):
     board, x_i, y_i = cutList.pop()
     doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i)
 
+  origins = list()
   for board in boards:
-    findAndDraw(sheet, board)
+    origins.append(findAndDraw(sheet, board))
+
+  # Demonstrate removing a board from a sheet
+  x, y = origins[0]
+  board = boards[0]
+
+  print(sheet)
+  sheet.removeBoardFromSheet(board, x, y)
+  print(sheet)
 
 def findAndDraw(sheet, board):
   for y in range(sheet.length):
@@ -49,7 +58,7 @@ def findAndDraw(sheet, board):
       print("Does the board fit at ({}, {})? {}".format(x, y, fit))
       if fit:
         sheet.drawBoardOnSheet(board, x, y)
-        return
+        return [x, y]
 
 if __name__ == '__main__':
   main()
