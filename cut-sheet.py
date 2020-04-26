@@ -4,61 +4,31 @@ from sheet import Sheet
 import numpy as np
 
 def main():
-  # Test: initialSmartPlacementTest
-  initialSmartPlacementTest()
-
-def initialSmartPlacementTest():
   """
-  Take a Sheet, and a Board and place the board on the sheet by trying several options
+  Create a Sheet
+  Create a list of Boards
+
+  findCutList
   """
-  width, length = 10, 14
-  sheet = Sheet(width, length)
+  pass
 
-  addBoardsToSheet(sheet)
-  # print(sheet)
+def findCutList():
+  """
+  initial test findCutListWithLargestBoardsFirst
+  """
+  pass
 
-def addBoardsToSheet(sheet):
-  a = Board(2, 8, 'A')
-  b = Board(8, 4, 'B')
-  # a.rotate()
-  print(a)
-
-  boards = list()
-  boards.append(a)
-  boards.append(b)
-
-  X = Board(2, 4, 'X')
-  Y = Board(4, 6, 'Y')
-
-  cutList = list()
-  cutList.append([X, 0, 0])
-  cutList.append([Y, 4, 0])
-
-  doesBoardFitOnSheet = True
-  while doesBoardFitOnSheet and cutList:
-    board, x_i, y_i = cutList.pop()
-    doesBoardFitOnSheet = sheet.drawBoardOnSheet(board, x_i, y_i)
-
-  origins = list()
-  for board in boards:
-    origins.append(findAndDraw(sheet, board))
-
-  # Demonstrate removing a board from a sheet
-  x, y = origins[0]
-  board = boards[0]
-
-  print(sheet)
-  sheet.removeBoardFromSheet(board, x, y)
-  print(sheet)
-
-def findAndDraw(sheet, board):
-  for y in range(sheet.length):
-    for x in range(sheet.width):
-      fit = sheet.doesBoardFitOnSheetAt(board, x, y)
-      print("Does the board fit at ({}, {})? {}".format(x, y, fit))
-      if fit:
-        sheet.drawBoardOnSheet(board, x, y)
-        return [x, y]
+def findCutListWithLargestBoardsFirst():
+  """
+  Sort Boards for biggest to smallest (by area or width/length?)
+  For each Board in Boards
+    For row, col in Sheet
+    Try and drawBoardOnSheet 
+    If doesn't fit, Board.rotate() and try again
+    If still not fit continue (row, col)
+    If fit then return and move onto next Board
+  """
+  pass
 
 if __name__ == '__main__':
   main()

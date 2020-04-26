@@ -48,9 +48,9 @@ class Sheet():
     """
     set the board's color back to notCutYet, and make the space free
     """
-    for r, row in enumerate(range(self.length)):
+    for r, _ in enumerate(range(self.length)):
       if r >= y_0 and r <= y_0 + board.length: 
-        for c, col in enumerate(range(self.width)):
+        for c, _ in enumerate(range(self.width)):
           if c >= x_0 and c < x_0 + board.width:
             if self.sheet[r][c] == board.color:
               self.sheet[r][c] = self.notCutYet
